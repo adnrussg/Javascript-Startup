@@ -4,6 +4,7 @@ function increaseCount(){
     count++;
     displayCount();
     checkCountVlaue();
+    console.log(count);
 }
 
 function displayCount(){
@@ -16,4 +17,11 @@ function checkCountVlaue(){
     } else if(count === 20){
         alert("Your instagram post gained 20 followers! Keep it up!");
     }
+}
+
+function resetCount(){
+    count = 0;
+    displayCount();
+    alert("You no longer have followers!")
+    console.log(count);
 }
