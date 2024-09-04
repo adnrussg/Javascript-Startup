@@ -27,7 +27,9 @@ function showBooks(){
         <p><strong>Book Name: </strong> ${book.name}</p>
         <p><strong>Author Name: </strong> ${book.authorName}</p>
         <p><strong>Book Description: </strong> ${book.bookDescription}</p>
-        <p><strong>No. of Pages: </strong> ${book.pagesNumber}</p>`
+        <p><strong>No. of Pages: </strong> ${book.pagesNumber}</p>
+        <button onclick="deletebook(${index})">Delete</button>
+        <button onclick="editbook(${index})">Edit</button>`
     );
     document.getElementById('books').innerHTML = booksDiv.join('');
 }
@@ -37,4 +39,45 @@ function clearInputs(){
     document.getElementById('authorName').value = '';
     document.getElementById('bookDescription').value = '';
     document.getElementById('pagesNumber').value = '';
+}
+
+function deletebook(index){
+    books.splice(index,1)
+    showBooks();
+}
+
+function editbook(index){
+    const updateBookButton = document.createElement('button');
+    updateBookButton.id = 'updateBook';
+    updateBookButton.textContent = 'Update Book';
+    const addBookButton = document.getElementById('addBook');
+    addBookButton.parentNode.insertBefore(updateBookButton, addBookButton.nextSibling);
+    updateBookButton.addEventListener('click', function(){
+        updateBook(index);
+    });
+    const book = books[index];
+
+    document.getElementById('bookName').value = book.name;
+    document.getElementById('authorName').value = book.authorName;
+    document.getElementById('bookDescription').value = book.bookDescription;
+    document.getElementById('pagesNumber').value = book.pagesNumber;
+}
+
+function updateBook(index){
+    const newbookName = document.getElementById('bookName').value;
+    const newauthorName = document.getElementById('authorName').value;
+    const newbookDescription = document.getElementById('bookDescription').value;
+    const newpagesNumber =  parseInt(document.getElementById('pagesNumber').value);
+    
+    const newbook = {
+        name: newbookName,
+        authorName: newauthorName,
+        bookDescription: newbookDescription,
+        pagesNumber: newpagesNumber,
+    }
+
+    books[index] = newbook;
+    document.getElementById('updateBook').remove();
+    showBooks();
+    clearInputs();
 }
